@@ -1,5 +1,7 @@
 # coding=utf-8
-
+import pandas as pd
+import numpy as np
+import csv
 
 answer_df = pd.read_csv('answer_nodup.csv')
 question_df = pd.read_csv('question_nodup.csv')
@@ -36,7 +38,7 @@ follow_people = get_count(follow_df.following_people)
 
 # # CUHKSZ Info
 
-target = ['香港中文大学（深圳）','香港中文大学\(深圳\)','CUHKSZ','CUHK\(SZ\)','香港中文大学深圳']
+target = ['棣欐腐涓枃澶у锛堟繁鍦筹級','棣欐腐涓枃澶у\(娣卞湷\)','CUHKSZ','CUHK\(SZ\)','棣欐腐涓枃澶у娣卞湷']
 cuhksz_df = hk_df.loc[hk_df['education'].str.contains('|'.join(target),case=False)]
 cuhksz_df.to_csv('cuhksz_df.csv',encoding='utf-8')
 
@@ -52,14 +54,14 @@ cuhksz_follow_people = get_count(cuhksz_follow_df.following_people)
 
 
 cuhksz_follow_df.to_csv('cuhksz_follow.csv',encoding='utf-8')
-following = cuhksz_follow_df.loc[cuhksz_follow_df.name=='龙岗第一百里守约','following_people']
+following = cuhksz_follow_df.loc[cuhksz_follow_df.name=='榫欏矖绗竴鐧鹃噷瀹堢害','following_people']
 
 
 # # CUHK Info
 
 
 cuhk_df = hk_df.loc[(hk_df['education'].str.contains('|'.join(target))==False) 
-                                                    & (hk_df['education'].str.contains('香港中文大学|CUHK',case=False))]
+                                                    & (hk_df['education'].str.contains('棣欐腐涓枃澶у|CUHK',case=False))]
 
 cuhk_df.to_csv('cuhk_df.csv',encoding='utf-8')
 
@@ -75,7 +77,7 @@ cuhk_follow_people = get_count(cuhk_follow_df.following_people)
 
 # # City U Info
 
-target = ['香港城市大学','CityU']
+target = ['棣欐腐鍩庡競澶у','CityU']
 cityu_df = hk_df.loc[hk_df['education'].str.contains('|'.join(target),case=False)]
 
 
@@ -90,7 +92,7 @@ cityu_follow_people = get_count(cityu_follow_df.following_people)
 
 # # HKU Info
 
-target = ['香港大学','HKU']
+target = ['棣欐腐澶у','HKU']
 hku_df = hk_df.loc[(hk_df['education'].str.contains('|'.join(target),case=False)) 
                    & (hk_df['education'].str.contains('HKUST', case=False)== False)]
 
@@ -105,7 +107,7 @@ hku_follow_people = get_count(hku_follow_df.following_people)
 
 # # HKUST Info
 
-target = ['香港科技大学','HKUST']
+target = ['棣欐腐绉戞妧澶у','HKUST']
 hkust_df = hk_df.loc[hk_df['education'].str.contains('|'.join(target),case=False)]
 
 hkust_name = hkust_df.name
@@ -119,7 +121,7 @@ hkust_follow_people = get_count(hkust_follow_df.following_people)
 
 # # HKBU Info
 
-target = ['香港浸会大学','HKBU']
+target = ['棣欐腐娴镐細澶у','HKBU']
 hkbu_df = hk_df.loc[hk_df['education'].str.contains('|'.join(target),case=False)]
 
 
@@ -134,7 +136,7 @@ hkbu_follow_people = get_count(hkbu_follow_df.following_people)
 
 # # PolyU
 
-target = ['香港理工大学','polyu']
+target = ['棣欐腐鐞嗗伐澶у','polyu']
 polyu_df = hk_df.loc[hk_df['education'].str.contains('|'.join(target),case=False)]
 
 
@@ -200,7 +202,7 @@ def plot_action(act_df,school_name):
     plt.xlabel('month',fontsize=20)
     plt.ylabel('actions',fontsize=20)
     plt.legend([l4,l3,l1,l2],['2016','2017','2018','2019'],fontsize=20)
-    plt.savefig(school_name+' action分析')
+    plt.savefig(school_name+' action鍒嗘瀽')
     
 plot_action(cuhksz_act_df,'cuhksz')
 
